@@ -3,15 +3,18 @@ package main
 import (
 	"github.com/kataras/iris/v12"
 	"multi_vendor/database"
+	"multi_vendor/routes"
 )
 
 func main() {
-	// Connect to DB
 	database.Connect()
 
-	// Create new Iris app
 	app := iris.New()
 
-	// Start server
-	app.Listen(":8080")
+	routes.Register(app)
+
+	err := app.Listen(":8080")
+	if err != nil {
+		return
+	}
 }
